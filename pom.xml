@@ -4,7 +4,7 @@
 
     <groupId>com.klout</groupId>
     <artifactId>brickhouse</artifactId>
-    <version>0.7.1-SNAPSHOT</version>
+    <version>0.7.1-jobs-ab-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Brickhouse</name>
     <description>Extensions of Hive for the Data Developer</description>
@@ -40,14 +40,36 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <apache.hadoop.version>0.20.2</apache.hadoop.version>
-        <apache.hbase.version>0.92.1</apache.hbase.version>
-        <apache.hive.version>0.10.0</apache.hive.version>
+        <apache.hadoop.version>2.5.0-cdh5.3.3</apache.hadoop.version>
+        <apache.hbase.version>0.98.6-cdh5.3.3</apache.hbase.version>
+        <apache.hive.version>0.13.1-cdh5.3.3</apache.hive.version>
         <codehaus.jackson.version>1.8.8</codehaus.jackson.version>
+        <hadoop.client.version>2.5.0-mr1-cdh5.3.3</hadoop.client.version>
     </properties>
 
     <build>
         <plugins>
+
+
+        <!-- <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/jar-with-dependencies.xml</descriptor>
+                        <descriptor>src/main/assembly/dist.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>fatjar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -138,6 +160,28 @@
            </executions>
          </plugin>
          -->
+          <!--  <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.google.common</pattern>
+                                    <shadedPattern>org.shaded.google.common</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+
         </plugins>
     </build>
 
@@ -158,6 +202,12 @@
 
         <!-- Hive -->
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-serde</artifactId>
             <optional>true</optional>
@@ -171,34 +221,18 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-exec</artifactId>
-            <version>${apache.hive.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.jdo</groupId>
-                    <artifactId>jdo2-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-core</artifactId>
-            <version>${apache.hadoop.version}</version>
+            <version>${hadoop.client.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase</artifactId>
+            <artifactId>hbase-client</artifactId>
             <version>${apache.hbase.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
-        </dependency>
+
 
         <dependency>
             <groupId>joda-time</groupId>
@@ -207,8 +241,8 @@
         </dependency>
 
         <!--
-           Depend on streamlib 
-		     for  HyperLogLog 
+           Depend on streamlib
+		     for  HyperLogLog
 		     implementation
 		  -->
         <dependency>
@@ -248,6 +282,26 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>${apache.hive.version}</version>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.jdo</groupId>
+                    <artifactId>jdo2-api</artifactId>
+                </exclusion>
+            <!--
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                -->
+            </exclusions>
+
+        </dependency>
+
 
     </dependencies>
 
@@ -260,6 +314,12 @@
          </repository>
      </distributionManagement>
      -->
+    <repositories>
+        <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </repository>
+    </repositories>
 
 
     <distributionManagement>
