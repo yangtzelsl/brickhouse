@@ -40,9 +40,11 @@
 
 	<properties>
 	   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-       <apache.hadoop.version>0.20.2</apache.hadoop.version>
-       <apache.hbase.version>0.92.1</apache.hbase.version>
+     <apache.hadoop.version>0.20.2</apache.hadoop.version>
+     <apache.hbase.version>0.92.1</apache.hbase.version>
 	   <apache.hive.version>0.10.0</apache.hive.version>
+     <testng.version>6.3.1</testng.version>
+     <jackson-core-asl.version>1.9.13</jackson-core-asl.version>
 	</properties>
 
 	<build>
@@ -225,8 +227,20 @@
 			<scope>test</scope>
 		</dependency>
 
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
 
-	</dependencies>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>${jackson-core-asl.version}</version>
+    </dependency>
+
+  </dependencies>
 
  <!--
     <distributionManagement>
