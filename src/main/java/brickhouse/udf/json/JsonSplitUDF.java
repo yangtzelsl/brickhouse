@@ -50,10 +50,9 @@ import brickhouse.udf.json.InspectorHandle.InspectorHandleFactory;
              value = "_FUNC_(json) - Returns a array of JSON strings from a JSON Array"
 )
 public class JsonSplitUDF extends GenericUDF {
-  private static final ObjectMapper om = new ObjectMapper();
-
   private StringObjectInspector stringInspector;
   private InspectorHandle inspHandle;
+
 
   @Override
   public Object evaluate(DeferredObject[] arguments) throws HiveException {
@@ -61,6 +60,7 @@ public class JsonSplitUDF extends GenericUDF {
       String jsonString = this.stringInspector.getPrimitiveJavaObject(arguments[0].get());
       
       //// Logic is the same as "from_json"
+      ObjectMapper om = new ObjectMapper();
       JsonNode jsonNode = om.readTree( jsonString);
       return inspHandle.parseJson(jsonNode);
 
