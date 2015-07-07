@@ -45,6 +45,8 @@
         <apache.hive.version>0.13.1-cdh5.3.3</apache.hive.version>
         <codehaus.jackson.version>1.8.8</codehaus.jackson.version>
         <hadoop.client.version>2.5.0-mr1-cdh5.3.3</hadoop.client.version>
+        <testng.version>6.3.1</testng.version>
+        <jackson-core-asl.version>1.9.13</jackson-core-asl.version>
     </properties>
 
     <build>
@@ -291,6 +293,19 @@
                 </exclusion>
             </exclusions>
 
+        </dependency>
+
+        <dependency>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+          <version>${testng.version}</version>
+          <scope>test</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.codehaus.jackson</groupId>
+          <artifactId>jackson-core-asl</artifactId>
+          <version>${jackson-core-asl.version}</version>
         </dependency>
 
     </dependencies>
