@@ -18,6 +18,14 @@ OK
 [{"a":1},{"b":2}]
 ```
 
+# 报错说明
+```bash
+org.apache.hadoop.hive.ql.exec.UDFArgumentException:Don't know how to handle object inspector org.apache.hadoop.hive.serde2.objectinspector.primitive.WritableHiveDecimalObjectInspector@105efe24
+```
+- 针对to_json函数，目前不能转化Decimal类型的字段，如果源表有该类型的字段，会报错
+- 可使用cast (`decimal_field` as string) 来解决
+
+
 
 Welcome to the Brickhouse
 =========================
