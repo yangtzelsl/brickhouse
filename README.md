@@ -5,11 +5,11 @@
  
  # 关注一下用户和组，是否具有权限
  
- # 创建永久函数
+ # 创建临时函数(也可创建永久函数)
 # 函数说明：使用驼峰命名，类的全名首字母转小写
 hive> create temporary function to_json as 'brickhouse.udf.json.ToJsonUDF' using jar 'hdfs:///udf/brickhouse-0.7.1-SNAPSHOT.jar';
  
-# 查看刚注册的函数
+# 查看刚注册的函数(函数会在相应的schema下，比如default.to_json)
 show functions;
 
 # 测试效果
